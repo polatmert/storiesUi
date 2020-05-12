@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class UserSignUpPage extends React.Component {
 
@@ -14,6 +15,19 @@ class UserSignUpPage extends React.Component {
         this.setState({
             [name]: value
         })
+    }
+
+    onClickSignUp = event => {
+        event.preventDefault();
+
+        const { username, displayName, password } = this.state;
+
+        const body = {
+            username: username,
+            displayName: displayName,
+            password: password
+        }
+        axios.post('/api/1.0/users', body)
     }
 
     render() {
@@ -40,7 +54,7 @@ class UserSignUpPage extends React.Component {
                     <label>Password Repeat</label>
                     <input name ="passwordRepeat" type="password" onChange={this.onChange} />
                 </div>
-                <button>Sign Up</button>
+                <button onClick={this.onClickSignUp}>Sign Up</button>
             </form>
         );
     }
