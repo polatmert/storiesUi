@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import UsersignUpPage from './UserSignUpPage'
 import * as serviceWorker from './serviceWorker';
+import './bootstrap-override.scss';
 
 ReactDOM.render(
   <React.StrictMode>
