@@ -8,15 +8,19 @@ class UserSignUpPage extends React.Component {
         displayName:null,
         password:null,
         passwordRepeat:null,
-        pendingApiCall:false
+        pendingApiCall:false,
+        errors:{}
     };
     
     onChange = event => {
         const { name, value } = event.target;
+        const errors ={...this.state.errors}; //copy object
+        errors[name] = undefined;
         this.setState({ 
-            [name]: value
-        })
-    }
+            [name]: value,
+            errors
+        });
+    };
 
     onClickSignUp = async event => {
         event.preventDefault();
@@ -33,7 +37,8 @@ class UserSignUpPage extends React.Component {
         try {
             const response = await signup(body);
         } catch (error) {
-
+            if(error.response.data.validationErrors)
+            this.setState({ errors: error.response.data.validationErrors });
         }
 
         this.setState({ pendingApiCall: false });
@@ -48,22 +53,30 @@ class UserSignUpPage extends React.Component {
     };
 
     render() {
-        const { pendingApiCall } = this.state;
+        const { pendingApiCall ,errors} = this.state;
+        const { username , displayName} = errors;
         return (
             <div className="container">
                 <form>
                     <h1 className="text-center">Sign Up</h1>
                     <div className="form-group">
                         <label>Username</label>
-                        <input className="form-control" name="username"
+                        <input className = {username ?  "form-control is-invalid" : "form-control" } name="username"
                             onChange={this.onChange}
                         />
+                        <div className="invalid-feedback">
+                         {this.state.errors.username}
+                         </div>
                     </div>
+                         
                     <div className="form-group">
                         <label>Display Name</label>
-                        <input className="form-control" name="displayName"
+                        <input className = {displayName ?  "form-control is-invalid" : "form-control" } name="displayName"
                             onChange={this.onChange}
                         />
+                        <div className="invalid-feedback">
+                         {this.state.errors.displayName}
+                         </div>
                     </div>
                     <div className="form-group">
                         <label>Password</label>
