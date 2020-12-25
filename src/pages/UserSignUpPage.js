@@ -1,5 +1,6 @@
 import React from 'react';
 import { signup } from '../api/apiCalls';
+import Input from '../components/input';
 
 class UserSignUpPage extends React.Component {
 
@@ -59,25 +60,28 @@ class UserSignUpPage extends React.Component {
             <div className="container">
                 <form>
                     <h1 className="text-center">Sign Up</h1>
-                    <div className="form-group">
+                    <Input name='username' label='Username' error={username} onChange ={this.onChange}></Input>
+                    <Input name='displayName' label='Display Name' error={displayName} onChange ={this.onChange}></Input>
+
+                    {/* <div className="form-group">
                         <label>Username</label>
                         <input className = {username ?  "form-control is-invalid" : "form-control" } name="username"
                             onChange={this.onChange}
                         />
-                        <div className="invalid-feedback">
+                         <div className="invalid-feedback">
                          {this.state.errors.username}
                          </div>
-                    </div>
+                    </div> */}
                          
-                    <div className="form-group">
+                    {/* <div className="form-group">
                         <label>Display Name</label>
                         <input className = {displayName ?  "form-control is-invalid" : "form-control" } name="displayName"
                             onChange={this.onChange}
                         />
-                        <div className="invalid-feedback">
+                         <div className="invalid-feedback">
                          {this.state.errors.displayName}
                          </div>
-                    </div>
+                    </div> */}
                     <div className="form-group">
                         <label>Password</label>
                         <input className="form-control" name="password" type="password" onChange={this.onChange} />
