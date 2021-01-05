@@ -54,13 +54,6 @@ class UserSignUpPage extends React.Component {
 
         this.setState({ pendingApiCall: false });
 
-        // signup.post(body)
-        //     .then((response) => {
-        //         this.setState({ pendingApiCall: false });
-        //     }).catch(error => {
-        //         this.setState({ pendingApiCall: false });
-        //     });
-
     };
 
     render() {
