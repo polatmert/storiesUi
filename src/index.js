@@ -1,15 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import UsersignUpPage from './pages/UserSignUpPage'
+import UsersignUpPage from './pages/UserSignUpPage';
+import LoginPage from './pages/LoginPage';
 import * as serviceWorker from './serviceWorker';
 import './bootstrap-override.scss';
 import './i18n';
+import LanguageSelector from './components/LanguageSelector';
+import UserSignUpPage from './pages/UserSignUpPage';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <UsersignUpPage />
-  </React.StrictMode>,
+    <div>  
+        <LoginPage />        
+        <LanguageSelector />
+    </div>,
   document.getElementById('root')
 );
 
