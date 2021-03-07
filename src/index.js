@@ -11,7 +11,7 @@ import UserSignUpPage from './pages/UserSignUpPage';
 
 ReactDOM.render(
     <div>  
-        <LoginPage />        
+        <UsersignUpPage />        
         <LanguageSelector />
     </div>,
   document.getElementById('root')
