@@ -8,12 +8,15 @@ import './bootstrap-override.scss';
 import './i18n';
 import LanguageSelector from './components/LanguageSelector';
 import UserSignUpPage from './pages/UserSignUpPage';
+import ApiProgress from './shared/ApiProgress';
 
 ReactDOM.render(
-    <div>  
-        <UsersignUpPage />        
-        <LanguageSelector />
-    </div>,
+  <div>
+    <ApiProgress>
+      <UsersignUpPage />
+    </ApiProgress>
+    <LanguageSelector />
+  </div>,
   document.getElementById('root')
 );
 
