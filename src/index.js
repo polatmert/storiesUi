@@ -1,22 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import UsersignUpPage from './pages/UserSignUpPage';
-import LoginPage from './pages/LoginPage';
 import * as serviceWorker from './serviceWorker';
 import './bootstrap-override.scss';
 import './i18n';
-import LanguageSelector from './components/LanguageSelector';
-import UserSignUpPage from './pages/UserSignUpPage';
-import ApiProgress from './shared/ApiProgress';
+import App from './container/App'
 
-ReactDOM.render(
-  <div>
-    <ApiProgress>
-      <UsersignUpPage />
-    </ApiProgress>
-    <LanguageSelector />
-  </div>,
+ReactDOM.render(<App/>
+,
   document.getElementById('root')
 );
 
