@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import Input from '../components/input';
-import {withTranslation} from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 import { login } from '../api/apiCalls';
 import axios from 'axios';
 import ButtonWithProgress from '../components/ButtonWithProgress';
 import { withApiProgress } from '../shared/ApiProgress';
+import { Authentication } from '../shared/AuthenticationContext';
 
 class LoginPage extends Component {
+
+    static contextType = Authentication;
+
     state = {
         username: null,
         password: null,
@@ -23,8 +27,8 @@ class LoginPage extends Component {
 
     onClickLogin = async event => {
         event.preventDefault();
-        const {username,password} = this.state;
-        const {onLoginSuccess} = this.props;
+        const { username, password } = this.state;
+        const { onLoginSuccess } = this.context;
         const creds = {
             username,
             password
@@ -33,40 +37,49 @@ class LoginPage extends Component {
         const { push } = this.props.history;
 
         this.setState({
-            error:null
+            error: null
         });
-        try{
-            await login(creds);
+        try {
+            const response = await login(creds);
             push('/');
-            onLoginSuccess(username);
+
+            const authState = {
+               // ...response.data
+                username: username,
+                password: password,
+                displayName: response.data.displayName,
+                image : response.data.image
+            };
+
+            onLoginSuccess(authState);
         }
-        catch(apiError){
+        catch (apiError) {
             this.setState({
-                error:apiError.response.data.message
+                error: apiError.response.data.message
             })
         }
     }
 
     render() {
-        const{ t, pendingApiCall} =this.props;
+        const { t, pendingApiCall } = this.props;
         const { username, password, error } = this.state;
 
-        const buttonEnabled= username && password;
-        
+        const buttonEnabled = username && password;
+
         return (
             <div className='container'>
                 <form>
                     <h1 className="text-center">{t('Login')}</h1>
                     <Input label={t('Username')} name="username" onChange={this.onChange} />
-                    <Input label={t('Password')} name="password" type= "password" onChange={this.onChange} />
-                        {/* error field doluysa hata mesajı göster */}
-                          {error &&  <div className="alert alert-danger" > {error} </div> }              
+                    <Input label={t('Password')} name="password" type="password" onChange={this.onChange} />
+                    {/* error field doluysa hata mesajı göster */}
+                    {error && <div className="alert alert-danger" > {error} </div>}
                     <div className="text-center">
-                        <ButtonWithProgress  
-                        onClick={this.onClickLogin}
-                        disabled={!buttonEnabled || pendingApiCall}
-                        pendingApiCall = {pendingApiCall}
-                        text={t('Login')}
+                        <ButtonWithProgress
+                            onClick={this.onClickLogin}
+                            disabled={!buttonEnabled || pendingApiCall}
+                            pendingApiCall={pendingApiCall}
+                            text={t('Login')}
                         />
                     </div>
                 </form>
@@ -77,4 +90,4 @@ class LoginPage extends Component {
 
 const LoginPageWithTraslation = withTranslation()(LoginPage);
 
-export default withApiProgress(LoginPageWithTraslation,'/api/1.0/auth');
+export default withApiProgress(LoginPageWithTraslation, '/api/1.0/auth');

@@ -4,10 +4,13 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import './bootstrap-override.scss';
 import './i18n';
-import App from './container/App'
+import App from './container/App';
+import AuthenticationContext, { Authentication } from './shared/AuthenticationContext';
 
-ReactDOM.render(<App/>
-,
+ReactDOM.render(
+  <AuthenticationContext>
+    <App />
+  </AuthenticationContext> ,
   document.getElementById('root')
 );
 
