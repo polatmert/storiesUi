@@ -5,12 +5,13 @@ import * as serviceWorker from './serviceWorker';
 import './bootstrap-override.scss';
 import './i18n';
 import App from './container/App';
-import AuthenticationContext, { Authentication } from './shared/AuthenticationContext';
+//import AuthenticationContext, { Authentication } from './shared/AuthenticationContext';
 
 ReactDOM.render(
-  <AuthenticationContext>
+ // <AuthenticationContext>
     <App />
-  </AuthenticationContext> ,
+  //</AuthenticationContext> 
+  ,
   document.getElementById('root')
 );
 

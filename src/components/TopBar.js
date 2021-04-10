@@ -2,16 +2,18 @@ import React, { Component } from 'react';
 import logo from '../assets/logo.png';
 import { Link } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
-import AuthenticationContext, { Authentication } from '../shared/AuthenticationContext';
+//import AuthenticationContext, { Authentication } from '../shared/AuthenticationContext';
 
 class TopBar extends Component {
 
-    static contextType = Authentication;
+   // static contextType = Authentication;
 
     render() {
         const { t } = this.props;
-        const { state, onLogoutSuccess } = this.context;
-        const { isLoggedIn, username } = state;
+        const onLogoutSuccess  = () => { }
+        const isLoggedIn = false;
+        const  username  = undefined;
+
 
         let links = (
             <ul className="navbar-nav ml-auto">
