@@ -2,18 +2,24 @@ import React, { Component } from 'react';
 import logo from '../assets/logo.png';
 import { Link } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
+import {connect} from 'react-redux';
 //import AuthenticationContext, { Authentication } from '../shared/AuthenticationContext';
 
 class TopBar extends Component {
 
    // static contextType = Authentication;
 
-    render() {
-        const { t } = this.props;
-        const onLogoutSuccess  = () => { }
-        const isLoggedIn = false;
-        const  username  = undefined;
+//type redux'da zorunlu 
+    onClickLogout = () => {
+        const action = {
+            type: 'logout-success'
+        };
+        this.props.dispatch(action);
 
+    };
+
+    render() {
+        const { t ,username, isLoggedIn } = this.props;
 
         let links = (
             <ul className="navbar-nav ml-auto">
@@ -34,7 +40,7 @@ class TopBar extends Component {
                     <Link className="nav-link" to={`/user/${username}`}>
                         {username}
                     </Link>
-                    <li className="nav-link" onClick={onLogoutSuccess} style={{ cursor: 'pointer' }}>{t('Logout')}</li>
+                    <li className="nav-link" onClick={this.onClickLogout} style={{ cursor: 'pointer' }}>{t('Logout')}</li>
                 </ul>
             )
         };
@@ -52,4 +58,15 @@ class TopBar extends Component {
     }
 }
 
-export default withTranslation()(TopBar);
+const TopBarWithTranslation = withTranslation()(TopBar);
+
+const mapStateToProps = (store) =>{
+
+    return{
+        isLoggedIn:store.isLoggedIn,
+        username : store.username
+    };
+
+};
+
+export default connect(mapStateToProps) (TopBarWithTranslation);

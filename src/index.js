@@ -6,11 +6,40 @@ import './bootstrap-override.scss';
 import './i18n';
 import App from './container/App';
 //import AuthenticationContext, { Authentication } from './shared/AuthenticationContext';
+import {Provider} from 'react-redux';
+import {createStore} from 'redux';
+
+
+const loggedInState = {
+  isLoggedIn: true,
+  username: "mert",
+  displayName: "mert_p",
+  image: null,
+  password: 'Pasword'
+};
+
+
+const defaultState ={
+  isLoggedIn: false,
+  username: undefined,
+  displayName: undefined,
+  image: undefined,
+  password: undefined
+}
+
+const reducer = (state = { ...defaultState}, action) => {
+  if (action.type == 'logout-success') {
+    return defaultState;
+  }
+  return state;
+}
+
+const store = createStore(reducer , loggedInState);
 
 ReactDOM.render(
- // <AuthenticationContext>
+ <Provider store = {store}>
     <App />
-  //</AuthenticationContext> 
+</Provider> 
   ,
   document.getElementById('root')
 );
