@@ -3,23 +3,15 @@ import logo from '../assets/logo.png';
 import { Link } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import {connect} from 'react-redux';
-//import AuthenticationContext, { Authentication } from '../shared/AuthenticationContext';
+import { logoutSuccess} from '../redux/authActions';
 
 class TopBar extends Component {
 
-   // static contextType = Authentication;
 
 //type redux'da zorunlu 
-    onClickLogout = () => {
-        const action = {
-            type: 'logout-success'
-        };
-        this.props.dispatch(action);
-
-    };
 
     render() {
-        const { t ,username, isLoggedIn } = this.props;
+        const { t ,username, isLoggedIn, onLogoutSuccess } = this.props;
 
         let links = (
             <ul className="navbar-nav ml-auto">
@@ -40,7 +32,7 @@ class TopBar extends Component {
                     <Link className="nav-link" to={`/user/${username}`}>
                         {username}
                     </Link>
-                    <li className="nav-link" onClick={this.onClickLogout} style={{ cursor: 'pointer' }}>{t('Logout')}</li>
+                    <li className="nav-link" onClick={onLogoutSuccess} style={{ cursor: 'pointer' }}>{t('Logout')}</li>
                 </ul>
             )
         };
@@ -69,4 +61,10 @@ const mapStateToProps = (store) =>{
 
 };
 
-export default connect(mapStateToProps) (TopBarWithTranslation);
+const mapDispatchToProps = dispatch => {
+    return {
+        onLogoutSuccess: () => dispatch(logoutSuccess())    
+    };
+};
+
+export default connect(mapStateToProps,mapDispatchToProps) (TopBarWithTranslation);
