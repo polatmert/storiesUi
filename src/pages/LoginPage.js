@@ -2,14 +2,10 @@ import React, { Component } from 'react';
 import Input from '../components/input';
 import { withTranslation } from 'react-i18next';
 import { login } from '../api/apiCalls';
-import axios from 'axios';
 import ButtonWithProgress from '../components/ButtonWithProgress';
 import { withApiProgress } from '../shared/ApiProgress';
-//import { Authentication } from '../shared/AuthenticationContext';
 
 class LoginPage extends Component {
-
-    //static contextType = Authentication;
 
     state = {
         username: null,
