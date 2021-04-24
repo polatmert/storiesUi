@@ -7,11 +7,12 @@ import HomePage from '../pages/HomePage';
 import UserPage from '../pages/UserPage';
 import { HashRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import TopBar from '../components/TopBar';
+import {connect } from 'react-redux';
 
 class App extends React.Component {
 
   render() {
-    const isLoggedIn = false;
+    const {isLoggedIn} = this.props;
     return (
       <div>
         <Router>
@@ -34,4 +35,12 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = (store) =>{
+
+  return{
+      isLoggedIn:store.isLoggedIn,
+  };
+};
+
+
+export default connect(mapStateToProps)(App);
